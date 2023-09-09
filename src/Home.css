@@ -16,44 +16,6 @@ h2 {
   font-size: 2rem;
 }
 
-header > img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 100px;
-  margin-bottom: 1rem;
-  max-width: 100%;
-}
-
-nav {
-  background-color: #57495E;
-  padding: 5px;
-  border-radius: 3px;
-}
-
-nav ul {
-  list-style: none;
-  text-align: center;
-}
-
-nav li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-nav li a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 1.5rem;
-}
-
-nav li a:hover {
-  text-decoration: underline;
-  color: #495D56;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 section {
   display: flex;
   gap: 20px;

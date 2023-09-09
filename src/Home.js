@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Navigation from "./components/Navigation";
 import "./Home.css";
 
 function Home() {
@@ -20,28 +21,7 @@ function Home() {
 
   return (
     <>
-      <header>
-        <img
-          src="https://github.com/ikenjoku/little-lemon/assets/32720508/e326bf8f-b7d8-48fd-b1d0-5eb16b1b6b5b"
-          alt="restaurant logo"
-        />
-      </header>
-      <nav id="page-nav">
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#menu">Menu</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-      </nav>
+      <Navigation />
       <main className="content">
         <section id="about">
           <article>
