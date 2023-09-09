@@ -21,12 +21,14 @@ function Navigation() {
 
   return (
     <>
-      <header>
-        <img
-          src="https://github.com/ikenjoku/little-lemon/assets/32720508/e326bf8f-b7d8-48fd-b1d0-5eb16b1b6b5b"
-          alt="restaurant logo"
-        />
-      </header>
+      <Link to="/">
+        <header>
+          <img
+            src="https://github.com/ikenjoku/little-lemon/assets/32720508/e326bf8f-b7d8-48fd-b1d0-5eb16b1b6b5b"
+            alt="restaurant logo"
+          />
+        </header>
+      </Link>
       <nav id="page-nav">
         <ul>
           <li>
