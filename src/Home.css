@@ -1,0 +1,153 @@
+body {
+  background-color: aliceblue;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: 5%;
+  margin-right: 5%;
+  position: relative;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+header > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+nav {
+  background-color: #57495E;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+nav ul {
+  list-style: none;
+  text-align: center;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+
+nav li a:hover {
+  text-decoration: underline;
+  color: #495D56;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+section img {
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+}
+
+article {
+  flex: 1;
+  min-width: 400px;
+  max-width: 100%;
+}
+
+footer {
+  display: flex;
+  background-color: #57495E;
+  padding: 10px;
+  border-radius: 3px;
+  margin-top: 1rem;
+}
+
+footer div {
+  flex: 1;
+  color: #ffffff;
+}
+
+footer div img {
+  height: 100px;
+}
+
+.cards {
+  background-color: #fcbd3f61;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.cards:hover {
+  background-color: #b0893b61;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 89%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+
+.letters {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 60px;
+  flex-wrap: wrap;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.letters p {
+  text-align: center;
+  background-color: #57495E;
+  width: 70px;
+  margin-right: 1.5px;
+  border-radius: 15%;
+  border-color: #F4CD14;
+  border-style: solid;
+  color: #F4CD14;
+}
+
+.letters:hover p:nth-child(even) {
+  transform: rotateY(360deg);
+  transition: 0.5s;
+}
+
+.letters:hover p:nth-child(odd) {
+  transform: rotateX(360deg);
+  transition: 1.5s;
+}
+
+@media only screen and (max-width: 400px) {
+  article {
+    min-width: 100%;
+  }
+}
