@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./Navigation.css";
 
@@ -29,7 +30,7 @@ function Navigation() {
       <nav id="page-nav">
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <a href="#about">About</a>
@@ -39,6 +40,9 @@ function Navigation() {
           </li>
           <li>
             <a href="#contact">Contact</a>
+          </li>
+          <li>
+            <Link to="book-a-table">Book</Link>
           </li>
         </ul>
       </nav>
