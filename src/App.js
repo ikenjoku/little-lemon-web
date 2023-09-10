@@ -5,6 +5,7 @@ import ErrorPage from "./ErrorPage";
 import Book from "./Book";
 import Home from "./Home";
 import Root from "./routes/root";
+import { BookingProvider } from "./context/booking";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <BookingProvider>
+      <RouterProvider router={router} />;
+    </BookingProvider>
+  );
 }
 
 export default App;
