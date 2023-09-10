@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "./Navigation.css";
 
 function Navigation() {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   useEffect(() => {
     var header = document.getElementById("page-nav");
     var sticky = header.offsetTop;
@@ -32,19 +35,30 @@ function Navigation() {
       <nav id="page-nav">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/"
+            >
+              Home
+            </NavLink>
           </li>
+          {isHomePage ? (
+            <>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#menu">Menu</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+            </>
+          ) : null}
           <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#menu">Menu</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-          <li>
-            <Link to="book-a-table">Book</Link>
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="book-a-table">
+              Book
+            </NavLink>
           </li>
         </ul>
       </nav>
