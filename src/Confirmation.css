@@ -1,0 +1,17 @@
+.formContainer {
+  text-align: center;
+  min-height: calc(100vh - 421.5px);
+}
+
+.message {
+  background-color: #fcbd3f61;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.highlight {
+  font-weight: 700;
+  color: #495D56;
+}

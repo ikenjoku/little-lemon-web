@@ -6,6 +6,7 @@ import Book from "./Book";
 import Home from "./Home";
 import Root from "./routes/root";
 import { BookingProvider } from "./context/booking";
+import Confirmation from "./Confirmation";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "confirmation",
+        element: <Confirmation />,
+      },
       {
         path: "book-a-table",
         element: <Book />,

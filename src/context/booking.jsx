@@ -1,63 +1,73 @@
 import * as React from "react";
+import { submitAPI, fetchAPI } from "../utils/api";
 
 export const BookingContext = React.createContext();
 
-const DEFAULT_FREE_TIMES = [
-  "17:00",
-  "18:00",
-  "19:00",
-  "20:00",
-  "21:00",
-  "22:00",
-];
+const DEFAULT_FREE_TIME = {
+  Morning: [],
+  Afternoon: [],
+  Evening: [],
+};
 
 export const BookingProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
-        case "SELECT_TIME":
-          const newSlots = prevState.availableTimes.filter(
-            (item) => item !== action.payload
-          );
+        case "SUBMIT":
           return {
             ...prevState,
-            availableTimes: newSlots,
+            availableTimes: DEFAULT_FREE_TIME,
+            booked: action.payload,
           };
         case "INITIALIZE_TIMES":
           return {
             ...prevState,
-            availableTimes: DEFAULT_FREE_TIMES,
+            availableTimes: action.payload,
           };
         default:
           return state;
       }
     },
     {
-      availableTimes: [],
+      availableTimes: DEFAULT_FREE_TIME,
       isLoading: false,
+      booked: {
+        time: "",
+        date: "",
+      },
     }
   );
 
-  React.useEffect(() => {
+  const fetchAvailableTimes = async (dateString) => {
+    const availableSlots = await fetchAPI(dateString);
     dispatch({
       type: "INITIALIZE_TIMES",
+      payload: availableSlots,
     });
-  }, []);
-  console.log("state", state);
+    return availableSlots;
+  };
+
+  const submitForm = async (formData) => {
+    const isSubmitted = await submitAPI(formData);
+    if (isSubmitted) {
+      dispatch({
+        type: "SUBMIT",
+        payload: {
+          date: formData.resDate,
+          time: formData.resTime,
+        },
+      });
+    }
+  };
+
   const values = React.useMemo(
     () => ({
-      updateTimes: async (formData) => {
-        //maybe call API
-
-        dispatch({
-          type: "SELECT_TIME",
-          payload: formData.resTime,
-        });
+      updateTimes: async (formData, callback) => {
+        await submitForm(formData);
+        callback();
       },
-      initializeTimes: async () => {
-        dispatch({
-          type: "INITIALIZE_TIMES",
-        });
+      initializeTimes: async (dateString) => {
+        await fetchAvailableTimes(dateString);
       },
       appData: state,
     }),

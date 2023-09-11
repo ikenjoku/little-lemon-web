@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useBooking } from "./context/booking";
 import "./Book.css";
 
@@ -9,10 +10,25 @@ const INITIAL_FORM = {
   occasion: "",
 };
 
+const parseTimes = (data, output = []) => {
+  for (const [key, value] of Object.entries(data)) {
+    output.push(<option key={key} label={key} disabled value=""></option>);
+    value.forEach((slot, i) => {
+      output.push(<option key={`${slot}-${i}`}>{slot}</option>);
+    });
+  }
+  return output;
+};
+
 function Book() {
   const [formData, setFormData] = useState(INITIAL_FORM);
-  const { appData, updateTimes } = useBooking();
+  const { appData, updateTimes, initializeTimes } = useBooking();
+  const navigate = useNavigate();
+
   const handleChange = (name, val) => {
+    if (name === "resDate") {
+      initializeTimes(new Date(val))
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: val,
@@ -21,10 +37,10 @@ function Book() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("formData", formData);
-    updateTimes(formData);
+    updateTimes(formData, () => navigate("/confirmation"));
     setFormData(INITIAL_FORM);
   };
+  const freeSlots = parseTimes(appData.availableTimes);
   return (
     <div className="formContainer">
       <form onSubmit={handleSubmit}>
@@ -46,9 +62,7 @@ function Book() {
           value={formData.resTime}
         >
           <option label="Select one" value=""></option>
-          {appData.availableTimes.map((slot) => (
-            <option key={slot}>{slot}</option>
-          ))}
+          {freeSlots}
         </select>
         <label htmlFor="guests">Number of guests</label>
         <input
