@@ -62,9 +62,8 @@ export const BookingProvider = ({ children }) => {
 
   const values = React.useMemo(
     () => ({
-      updateTimes: async (formData, callback) => {
+      updateTimes: async (formData) => {
         await submitForm(formData);
-        callback();
       },
       initializeTimes: async (dateString) => {
         await fetchAvailableTimes(dateString);

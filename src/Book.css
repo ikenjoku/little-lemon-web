@@ -20,3 +20,12 @@ select, input {
 label {
   font-weight: bold;
 }
+
+.form-input[aria-invalid=true], .css-1kp110w[data-invalid] {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 1px #E53E3E;
+}
+
+.error-message {
+  color: #E53E3E;
+}

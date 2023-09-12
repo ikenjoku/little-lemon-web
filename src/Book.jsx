@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useBooking } from "./context/booking";
 import "./Book.css";
 
@@ -9,6 +10,16 @@ const INITIAL_FORM = {
   guests: 1,
   occasion: "",
 };
+
+let bookingSchema = Yup.object({
+  resDate: Yup.string().required("Please choose a date"),
+  resTime: Yup.string().required("Please select an available slot"),
+  guests: Yup.number()
+    .min(1)
+    .max(10)
+    .required("Please choose between 1 to 10 guests"),
+  occasion: Yup.string().required("Please select the occasion"),
+});
 
 const parseTimes = (data, output = []) => {
   for (const [key, value] of Object.entries(data)) {
@@ -21,74 +32,112 @@ const parseTimes = (data, output = []) => {
 };
 
 function Book() {
-  const [formData, setFormData] = useState(INITIAL_FORM);
   const { appData, updateTimes, initializeTimes } = useBooking();
   const navigate = useNavigate();
+  const {
+    handleSubmit,
+    values,
+    handleChange: formikHandler,
+    resetForm,
+    errors,
+    touched,
+    handleBlur,
+    isValid,
+    dirty,
+  } = useFormik({
+    initialValues: INITIAL_FORM,
+    onSubmit: async (values) => {
+      await updateTimes(values);
+      resetForm();
+      navigate("/confirmation");
+    },
+    validationSchema: bookingSchema,
+  });
 
-  const handleChange = (name, val) => {
-    if (name === "resDate") {
-      initializeTimes(new Date(val))
+  const handleChange = (e) => {
+    if (e.target.name === "resDate") {
+      initializeTimes(new Date(e.target.value));
     }
-    setFormData((prev) => ({
-      ...prev,
-      [name]: val,
-    }));
+    formikHandler(e);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateTimes(formData, () => navigate("/confirmation"));
-    setFormData(INITIAL_FORM);
-  };
   const freeSlots = parseTimes(appData.availableTimes);
   return (
     <div className="formContainer">
       <form onSubmit={handleSubmit}>
         <label htmlFor="res-date">Choose date</label>
         <input
-          required
+          className="form-input"
+          aria-invalid={touched.resDate && !!errors.resDate}
+          data-invalid={touched.resDate && !!errors.resDate}
           type="date"
           name="resDate"
           id="res-date"
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          value={formData.resDate}
+          onChange={handleChange}
+          value={values.resDate}
+          onBlur={handleBlur}
         />
+        <div className="error-message">
+          {touched.resDate ? errors.resDate : ""}
+        </div>
+
         <label htmlFor="res-time">Choose time</label>
         <select
-          required
+          className="form-input"
+          aria-invalid={touched.resTime && !!errors.resTime}
+          data-invalid={touched.resTime && !!errors.resTime}
           name="resTime"
           id="res-time"
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          value={formData.resTime}
+          onChange={handleChange}
+          value={values.resTime}
+          onBlur={handleBlur}
         >
           <option label="Select one" value=""></option>
           {freeSlots}
         </select>
+        <div className="error-message">
+          {touched.resTime ? errors.resTime : ""}
+        </div>
+
         <label htmlFor="guests">Number of guests</label>
         <input
-          required
+          className="form-input"
+          aria-invalid={touched.guests && !!errors.guests}
+          data-invalid={touched.guests && !!errors.guests}
           name="guests"
           type="number"
           placeholder=""
-          min="1"
-          max="10"
           id="guests"
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          value={formData.guests}
+          onChange={handleChange}
+          value={values.guests}
+          onBlur={handleBlur}
         />
+        <div className="error-message">
+          {touched.guests ? errors.guests : ""}
+        </div>
+
         <label htmlFor="occasion">Occasion</label>
         <select
-          required
+          className="form-input"
+          aria-invalid={touched.occasion && !!errors.occasion}
+          data-invalid={touched.occasion && !!errors.occasion}
           name="occasion"
           id="occasion"
-          onChange={(e) => handleChange(e.target.name, e.target.value)}
-          value={formData.occasion}
+          onChange={handleChange}
+          value={values.occasion}
+          onBlur={handleBlur}
         >
           <option label="Select one" value=""></option>
           <option>Birthday</option>
           <option>Anniversary</option>
         </select>
-        <button type="submit">Make Your reservation</button>
+        <div className="error-message">
+          {touched.occasion ? errors.occasion : ""}
+        </div>
+
+        <button disabled={!(isValid && dirty)} type="submit">
+          Make Your reservation
+        </button>
       </form>
     </div>
   );
