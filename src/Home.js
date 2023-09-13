@@ -37,7 +37,7 @@ function Home() {
           </p>
         </article>
         <article className="cards">
-          <h2>Book a table</h2>
+          <h2>Visit us today</h2>
           <img
             src="https://github.com/ikenjoku/little-lemon/assets/32720508/7329748a-852a-46e9-8f37-81130896bfc6"
             alt="section two"

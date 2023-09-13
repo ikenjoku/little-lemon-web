@@ -44,7 +44,6 @@ export const BookingProvider = ({ children }) => {
       type: "INITIALIZE_TIMES",
       payload: availableSlots,
     });
-    return availableSlots;
   };
 
   const submitForm = async (formData) => {
