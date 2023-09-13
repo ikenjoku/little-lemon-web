@@ -1,0 +1,31 @@
+.formContainer {
+  text-align: center;
+  min-height: calc(100vh - 421.5px);
+}
+
+form {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+ max-width: 400px;
+ margin: 2rem auto;
+}
+
+select, input {
+  height: 57.09px;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form-input[aria-invalid=true], .css-1kp110w[data-invalid] {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 1px #E53E3E;
+}
+
+.error-message {
+  color: #E53E3E;
+}
